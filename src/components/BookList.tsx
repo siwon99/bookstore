@@ -4,6 +4,7 @@ import { Pagination } from './Pagination';
 import { SearchBar } from './SearchBar';
 import { fetchBook } from '../services/bookservice';
 import { Book } from '../types/bookTypes';
+import './BookList.css'
 
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -32,7 +33,7 @@ const BookList: React.FC = () => {
     );
   };
 
-  //한 페이지에 책 10권 계산산
+  //한 페이지에 책 10권 계산
   const bookListPage = 10;
   const LastBookIndex = currentPage * bookListPage;
   const FirstBookIndex = LastBookIndex - bookListPage;
@@ -40,11 +41,26 @@ const BookList: React.FC = () => {
 
   return (
     <>
-      <BookCard />
-      <Pagination />
-      <SearchBar />
+      <div className="book-list-container">
+        <div className="search-bar-container">
+          <SearchBar onSearch={handleSearch} />
+        </div>
+        <div className="book-card-container">
+          {currentBook.map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </div>
+        <div className="pagination-container">
+          <Pagination
+            onPageChange={setCurrentPage}
+            totalBook={filteredBooks.length}
+            bookListPage={bookListPage}
+            currentBook={currentBook}
+          />
+        </div>
+      </div>
     </>
   );
 };
 
-export default { BookList };
+export default BookList;
