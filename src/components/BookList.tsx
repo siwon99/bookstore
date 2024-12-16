@@ -20,6 +20,19 @@ const BookList: React.FC = () => {
     getBook();
   }, []);
 
+  //검색어
+  const handleSearch = (searchWord: string) => {
+    setSearchBar(searchWord); 
+    setFilteredBooks(
+      books.filter(
+        (book) =>
+          book.title.toLowerCase().includes(searchWord.toLowerCase()) ||
+          book.author.toLowerCase().includes(searchWord.toLowerCase())
+      )
+    );
+  };
+  
+
   return (
     <>
       <BookCard />
