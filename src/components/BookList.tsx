@@ -31,7 +31,12 @@ const BookList: React.FC = () => {
       )
     );
   };
-  
+
+  //한 페이지에 책 10권 계산산
+  const bookListPage = 10;
+  const LastBookIndex = currentPage * bookListPage;
+  const FirstBookIndex = LastBookIndex - bookListPage;
+  const currentBook = filteredBooks.slice(FirstBookIndex, LastBookIndex);
 
   return (
     <>
