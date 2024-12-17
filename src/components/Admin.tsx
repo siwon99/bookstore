@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addBook } from '../services/bookservice';
+import { addBook, removeBook, updateBookQuantity } from '../services/bookservice';
 import { Book } from '../types/bookTypes';
 
 export const Admin: React.FC = () => {
@@ -26,7 +26,25 @@ export const Admin: React.FC = () => {
         quantity: 0,
       });
     } catch (error) {
-      alert('책 추가 실패: '+ error);
+      alert('책 추가 실패: ' + error);
+    }
+  };
+
+  const handleRemoveBook = async (id: number) => {
+    try {
+      await removeBook(id.toString());
+      alert('책을 삭제했습니다!');
+    } catch (error) {
+      alert('책 삭제 실패: ' + error);
+    }
+  };
+
+  const handleQuantityChange = async (id: number, quantity: number) => {
+    try {
+      await updateBookQuantity(id.toString(), quantity);
+      alert('책 수량이 업데이트되었습니다!');
+    } catch (error) {
+      alert('수량 업데이트 실패: ' + error);
     }
   };
 
@@ -66,6 +84,31 @@ export const Admin: React.FC = () => {
         />
         <button type="submit">책 추가</button>
       </form>
+
+      <h2>책 삭제하기</h2>
+      <input
+        type="number"
+        placeholder="책 ID 삭제"
+        onChange={(e) => {
+          const id = Number(e.target.value);
+          if (!isNaN(id)) {
+            handleRemoveBook(id);
+          }
+        }}
+      />
+
+      <h2>책 수량 업데이트</h2>
+      <input
+        type="number"
+        placeholder="책 ID"
+        onChange={(e) => {
+          const id = Number(e.target.value);
+          const quantity = prompt('수량을 입력해주세요:');
+          if (!isNaN(id) && quantity) {
+            handleQuantityChange(id, Number(quantity));
+          }
+        }}
+      />
     </div>
   );
 };
