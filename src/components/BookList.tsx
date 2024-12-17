@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BookCard from './BookCard';
 import Pagination from './Pagination';
 import SearchBar from './SearchBar';
-import { fetchBook } from '../services/bookService';
+import { fetchBook } from '../services/bookservice';
 import { Book } from '../types/bookTypes';
 import './BookList.css'
 
@@ -55,7 +55,7 @@ const BookList: React.FC = () => {
             onPageChange={setCurrentPage}
             totalBook={filteredBooks.length}
             bookListPage={bookListPage}
-            currentBook={currentBook}
+            currentPage={currentPage}
           />
         </div>
       </div>

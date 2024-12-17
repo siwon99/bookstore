@@ -1,20 +1,20 @@
 import React from 'react';
 
 type PaginationProps = {
-  totalBooks: number;
+  totalBook: number;
   bookListPage: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 };
 
 const Pagination: React.FC<PaginationProps> = ({
-  totalBooks,
+  totalBook,
   bookListPage,
   currentPage,
   onPageChange,
 }) => {
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalBooks / bookListPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalBook / bookListPage); i++) {
     pageNumbers.push(i);
   }
 
