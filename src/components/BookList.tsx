@@ -91,6 +91,19 @@ const BookList: React.FC = () => {
     return Math.max(...books.map(book => book.id)) + 1; 
   };
 
+  const handleQuantityChange = (id: number, newQuantity: number) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) =>
+        book.id === id ? { ...book, quantity: newQuantity } : book
+      )
+    );
+    setFilteredBooks((prevBooks) =>
+      prevBooks.map((book) =>
+        book.id === id ? { ...book, quantity: newQuantity } : book
+      )
+    );
+  };
+
   return (
     <>
       <div className="bookList-container">
@@ -167,13 +180,7 @@ const BookList: React.FC = () => {
             setBooks((prevBooks) => prevBooks.filter(book => book.id !== id));
             setFilteredBooks((prevFilteredBooks) => prevFilteredBooks.filter(book => book.id !== id));
           }} 
-          onQuantityChange={(newQuantity) => {
-            setBooks((prevBooks) =>
-              prevBooks.map((b) =>
-                b.id === selectedBook.id ? { ...b, quantity: newQuantity } : b
-              )
-            );
-          }}
+          onQuantityChange={handleQuantityChange} 
         />
       )}
     </>
