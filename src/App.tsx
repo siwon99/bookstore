@@ -1,12 +1,17 @@
 import React from 'react';
-import BookList from './components/BookList';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BookList } from './components/BookList';
+import { BookDetail } from './components/BookDetail';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div>
-      <BookList /> 
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<BookList />} />
+        <Route path="/book/:bookId" element={<BookDetail />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
