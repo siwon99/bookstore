@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { BookCard } from './BookCard';
-import { Pagination } from './Pagination';
-import { SearchBar } from './SearchBar';
-import { fetchBook } from '../services/bookservice';
+import BookCard from './BookCard';
+import Pagination from './Pagination';
+import SearchBar from './SearchBar';
+import { fetchBook } from '../services/bookService';
 import { Book } from '../types/bookTypes';
 import './BookList.css'
 
