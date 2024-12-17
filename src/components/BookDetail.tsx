@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchBookById } from '../services/bookService';
+import { fetchBookById } from '../services/bookservice';
 import { Book } from '../types/bookTypes';
 
 const BookDetail: React.FC = () => {
