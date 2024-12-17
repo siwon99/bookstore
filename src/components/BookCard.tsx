@@ -8,9 +8,9 @@ type BookCardProps = {
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
   return (
     <div>
-      <h3>{book.title}</h3>
-      <p>{book.author}</p>
-      <p>{book.description}</p>
+      <h3>제목: {book.title}</h3>
+      <p>저자: {book.author}</p>
+      <p>상세정보: {book.description}</p>
     </div>
   );
 };
