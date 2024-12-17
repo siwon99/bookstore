@@ -18,7 +18,7 @@ const BookDetail: React.FC<BookDetailProps> = ({ book, onClose }) => {
         <h2>{book.title}</h2>
         <p><strong>저자:</strong> {book.author}</p>
         <p><strong>상세정보:</strong> {book.description}</p>
-        <p><strong>가격:</strong> ${book.price}</p>
+        <p><strong>가격:</strong> {book.price}원</p>
       </div>
     </div>
   );
