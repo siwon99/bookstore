@@ -1,16 +1,29 @@
-// import React, { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
-// import { fetchBookById } from '../services/bookservice';
-import React from 'react';
+// BookDetail.tsx
+import React, { useState } from 'react';
 import { Book } from '../types/bookTypes';
 import './BookDetail.css';
 
 interface BookDetailProps {
   book: Book;
   onClose: () => void;
+  onRemove: (id: number) => void;
+  onQuantityChange: (id: number, quantity: number) => void;
 }
 
-const BookDetail: React.FC<BookDetailProps> = ({ book, onClose }) => {
+const BookDetail: React.FC<BookDetailProps> = ({ book, onClose, onRemove, onQuantityChange }) => {
+  const [newQuantity, setNewQuantity] = useState<number>(book.quantity);
+
+  const handleUpdateQuantity = () => {
+    onQuantityChange(book.id, newQuantity);
+    alert('책 수량이 업데이트되었습니다!');
+  };
+
+  const handleDeleteBook = () => {
+    alert("책을 삭제했습니다.");
+    onRemove(book.id);
+    onClose(); 
+  };
+
   return (
     <div className="bookDetail-modal">
       <div className="bookDetail-content">
@@ -19,37 +32,22 @@ const BookDetail: React.FC<BookDetailProps> = ({ book, onClose }) => {
         <p><strong>저자:</strong> {book.author}</p>
         <p><strong>상세정보:</strong> {book.description}</p>
         <p><strong>가격:</strong> {book.price}원</p>
+        <p><strong>현재 수량:</strong> {book.quantity}</p>
+
+        <h3>책 수량 업데이트</h3>
+        <input
+          type="number"
+          placeholder="새로운 수량"
+          value={newQuantity}
+          onChange={(e) => setNewQuantity(Number(e.target.value))}
+        />
+        <button onClick={handleUpdateQuantity}>업데이트</button>
+        
+        <h3>책 삭제하기</h3>
+        <button onClick={handleDeleteBook}>삭제</button>
       </div>
     </div>
   );
 };
 
 export default BookDetail;
-
-// const BookDetail: React.FC = () => {
-//   const { bookId } = useParams<{ bookId: number }>();
-//   const [book, setBook] = useState<Book | null>(null);
-
-//   useEffect(() => {
-//     const getBook = async () => {
-//       if (bookId) {
-//         const data = await fetchBookById(bookId);
-//         setBook(data);
-//       }
-//     };
-//     getBook();
-//   }, [bookId]);
-
-//   if (!book) {
-//     return <div>책을 불러오는 중입니다.</div>;
-//   }
-
-//   return (
-//     <div>
-//       <h1>제목: {book.title}</h1>
-//       <p>저자: {book.author}</p>
-//       <p>책 소개: {book.description}</p>
-//       <p>가격: {book.price}원</p>
-//     </div>
-//   );
-// };
