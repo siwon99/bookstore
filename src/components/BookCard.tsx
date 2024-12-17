@@ -1,13 +1,15 @@
 import React from 'react';
 import { Book } from '../types/bookTypes';
+import './BookCard.css';
 
 type BookCardProps = {
   book: Book;
+  onClick: () => void;
 };
 
-const BookCard: React.FC<BookCardProps> = ({ book }) => {
+const BookCard: React.FC<BookCardProps> = ({ book, onClick}) => {
   return (
-    <div>
+    <div className="bookCard" onClick={onClick}>
       <h3>제목: {book.title}</h3>
       <p>저자: {book.author}</p>
       <p>상세정보: {book.description}</p>
