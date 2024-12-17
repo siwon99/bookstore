@@ -5,36 +5,34 @@ import SearchBar from './SearchBar';
 import { fetchBook } from '../services/bookservice';
 import { Book } from '../types/bookTypes';
 import BookDetail from './BookDetail';
-import './BookList.css'
+import './BookList.css';
 
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchBar, setSearchBar] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [newBook, setNewBook] = useState<Omit<Book, 'id'>>({
     title: '',
     author: '',
     description: '',
-    price: 0,
+    price: '',
     quantity: 1,
   });
 
   useEffect(() => {
     const getBook = async () => {
       const data = await fetchBook();
-      console.log(data);
       setBooks(data);
       setFilteredBooks(data);
     };
     getBook();
   }, []);
 
-  //검색어
   const handleSearch = (searchWord: string) => {
-    setSearchBar(searchWord); 
+    setSearchBar(searchWord);
     setFilteredBooks(
       books.filter(
         (book) =>
@@ -44,14 +42,12 @@ const BookList: React.FC = () => {
     );
   };
 
-  //한 페이지에 책 10권 계산
   const bookListPage = 10;
   const LastBookIndex = currentPage * bookListPage;
   const FirstBookIndex = LastBookIndex - bookListPage;
   const currentBook = filteredBooks.slice(FirstBookIndex, LastBookIndex);
 
-  //모달 열고 닫기
-  const handleBookClick = (book : Book) => {
+  const handleBookClick = (book: Book) => {
     setSelectedBook(book);
     setIsModalOpen(true);
   };
@@ -61,14 +57,25 @@ const BookList: React.FC = () => {
     setSelectedBook(null);
   };
 
-  //책 추가
   const handleAddBook = () => {
+    const priceNumber = Number(newBook.price);
+    const quantityNumber = Number(newBook.quantity);
+
+    if (isNaN(priceNumber) || isNaN(quantityNumber)) {
+      alert('가격과 수량은 숫자로 입력하세요!');
+      return;
+    }
+
     const newBookWithId = {
       id: getNextId(),
-      ...newBook
+      ...newBook,
+      price: priceNumber,
+      quantity: quantityNumber
     };
+
     setBooks((prevBooks) => [...prevBooks, newBookWithId]);
     setFilteredBooks((prevFilteredBooks) => [...prevFilteredBooks, newBookWithId]);
+    alert('새로운 책이 추가되었습니다!');
     
     setNewBook({
       title: '',
@@ -79,7 +86,6 @@ const BookList: React.FC = () => {
     });
   };
 
-  //책 추가시 id부여
   const getNextId = () => {
     if (books.length === 0) return 1; 
     return Math.max(...books.map(book => book.id)) + 1; 
@@ -94,36 +100,47 @@ const BookList: React.FC = () => {
 
         <div className="admin-buttons">
           <h2>책 추가하기</h2>
-          <input
-            type="text"
-            placeholder="책 제목을 입력하세요."
-            value={newBook.title}
-            onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
-          />
-          <input
-            type="text"
-            placeholder="책 저자를 입력하세요."
-            value={newBook.author}
-            onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
-          />
-          <input
-            type="text"
-            placeholder="책 상세정보를 입력하세요."
-            value={newBook.description}
-            onChange={(e) => setNewBook({ ...newBook, description: e.target.value })}
-          />
-          <input
-            type="number"
-            placeholder="책 가격을 입력하세요."
-            value={newBook.price}
-            onChange={(e) => setNewBook({ ...newBook, price: Number(e.target.value) })}
-          />
-          <input
-            type="number"
-            placeholder="책 수량을 입력하세요."
-            value={newBook.quantity}
-            onChange={(e) => setNewBook({ ...newBook, quantity: Number(e.target.value) })}
-          />
+          <div className="admin-buttons-container">
+            <div className="admin-buttons-one">
+              <p>책 제목</p>
+              <input
+                type="text"
+                placeholder="책 제목"
+                value={newBook.title}
+                onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
+              />
+              <p>책 저자</p>
+              <input
+                type="text"
+                placeholder="책 저자"
+                value={newBook.author}
+                onChange={(e) => setNewBook({ ...newBook, author: e.target.value })}
+              />
+              <p>책 상세정보</p>
+              <input
+                type="text"
+                placeholder="책 상세정보"
+                value={newBook.description}
+                onChange={(e) => setNewBook({ ...newBook, description: e.target.value })}
+              />
+            </div>
+            <div className="admin-buttons-two">
+              <p>책 가격</p>
+              <input
+                type="text"
+                placeholder="책 가격"
+                value={newBook.price}
+                onChange={(e) => setNewBook({ ...newBook, price: e.target.value })}
+              />
+              <p>책 수량</p>
+              <input
+                type="text"
+                placeholder="책 수량"
+                value={newBook.quantity}
+                onChange={(e) => setNewBook({ ...newBook, quantity: e.target.value })}
+              />
+            </div>
+          </div>
           <button onClick={handleAddBook}>추가하기</button>
         </div>
 
@@ -142,19 +159,17 @@ const BookList: React.FC = () => {
         </div>
       </div>
 
-      {selectedBook && (
+      {isModalOpen && selectedBook && (
         <BookDetail 
           book={selectedBook} 
           onClose={handleCloseModal} 
-          onRemove={handleRemoveBook} 
+          onRemove={(id) => {
+            setBooks((prevBooks) => prevBooks.filter(book => book.id !== id));
+            setFilteredBooks((prevFilteredBooks) => prevFilteredBooks.filter(book => book.id !== id));
+          }} 
           onQuantityChange={(newQuantity) => {
             setBooks((prevBooks) =>
               prevBooks.map((b) =>
-                b.id === selectedBook.id ? { ...b, quantity: newQuantity } : b
-              )
-            );
-            setFilteredBooks((prevFilteredBooks) =>
-              prevFilteredBooks.map((b) =>
                 b.id === selectedBook.id ? { ...b, quantity: newQuantity } : b
               )
             );
