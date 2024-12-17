@@ -19,8 +19,13 @@ const Pagination: React.FC<PaginationProps> = ({
   }
 
   return (
-    <>
-    </>
+    <div>
+      {pageNumbers.map((number) => (
+        <button key={number} onClick={() => onPageChange(number)}>
+          {number}
+        </button>
+      ))}
+    </div>
   );
 };
 
