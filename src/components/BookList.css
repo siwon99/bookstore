@@ -9,7 +9,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 102%;
 }
 
 .searchBar-container input {
@@ -64,27 +63,70 @@
   cursor: not-allowed;
 }
 
-.searchBar input {
-  padding: 10px;
-  font-size: 16px;
-  width: 100%;
-  max-width: 400px;
+.admin-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 20px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.searchBar button {
+.admin-buttons h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.admin-buttons-container {
+  display: flex;
+  gap: 20px;
+}
+
+.admin-buttons-one,
+.admin-buttons-two {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.admin-buttons p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.admin-buttons input[type="text"] {
+  height: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.admin-buttons input[type="text"]:focus {
+  border-color: #28a745;
+  outline: none;
+  box-shadow: 0 0 5px rgba(21, 255, 0, 0.5);
+}
+
+.admin-buttons button {
   background-color: #28a745;
   color: white;
   border: none;
   padding: 10px 15px;
+  height: 45px;
   font-size: 16px;
   cursor: pointer;
-  border-radius: 5px;
-  margin-left: 10px;
+  border-radius: 10px;
   transition: background-color 0.3s ease;
+  margin-top: 20px;
 }
 
-.searchBar button:hover {
+.admin-buttons button:hover {
   background-color: #218838;
 }
