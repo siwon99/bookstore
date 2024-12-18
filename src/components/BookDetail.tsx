@@ -1,4 +1,3 @@
-// BookDetail.tsx
 import React, { useState } from 'react';
 import { Book } from '../types/bookTypes';
 import './BookDetail.css';
