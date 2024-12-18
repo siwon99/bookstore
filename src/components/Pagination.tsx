@@ -1,4 +1,5 @@
 import React from 'react';
+import './Pagination.css';
 
 type PaginationProps = {
   totalBook: number;
@@ -19,9 +20,13 @@ const Pagination: React.FC<PaginationProps> = ({
   }
 
   return (
-    <div>
+    <div className="pagination-container">
       {pageNumbers.map((number) => (
-        <button key={number} onClick={() => onPageChange(number)}>
+        <button
+          key={number}
+          onClick={() => onPageChange(number)}
+          className={number === currentPage ? 'current-page' : ''}
+        >
           {number}
         </button>
       ))}
