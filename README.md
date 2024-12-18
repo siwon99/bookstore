@@ -26,7 +26,8 @@
 1. **책 목록 페이지**: 페이지네이션을 통해 한 페이지에 10개 항목을 표시하고, 책 제목 및 저자로 검색 가능
 2. **책 상세 정보 페이지**: 책의 상세 정보를 확인하고 수정할 수 있는 기능 제공
 3. **책 관리 기능**: 책 추가, 삭제 및 수량 조정 기능 제공
-
+   
+위의 기능들은 현재 임시로 목업 데이터 50개를 제작하여 연결하였으며, 추후 REST API로 연결 예정입니다.
 <br>
 <br>
 
@@ -103,6 +104,7 @@ npm run dev
 <br>
 <br>
 
+
 ## 📚 기술 스택
 
 <div>
@@ -111,6 +113,15 @@ npm run dev
   <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">  
   <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white"> 
+
+<br/>
+<br/>
+
+
+## 💡 추후 추가하면 좋을 기능
+- 책 추가 기능에서 input창에 모든 값이 입력되지 않을 경우 alert 띄우기
+- REST API 연결하기
+- 새로고침해도 변경된 데이터 가지고 있기 (책 추가, 책 삭제, 책 수량 변경)
 
 <br/>
 <br/>
