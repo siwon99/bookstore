@@ -41,10 +41,10 @@ const BookDetail: React.FC<BookDetailProps> = ({ book, onClose, onRemove, onQuan
           value={newQuantity}
           onChange={(e) => setNewQuantity(Number(e.target.value))}
         />
-        <button onClick={handleUpdateQuantity}>업데이트</button>
+        <button className='bookDetail-updateBtn' onClick={handleUpdateQuantity}>업데이트</button>
         
         <h3>책 삭제하기</h3>
-        <button onClick={handleDeleteBook}>삭제</button>
+        <button className='bookDetail-removeBtn' onClick={handleDeleteBook}>삭제</button>
       </div>
     </div>
   );

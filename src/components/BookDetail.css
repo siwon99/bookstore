@@ -32,3 +32,37 @@
   background-color: red;
   color: white;
 }
+
+.bookDetail-updateBtn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 9px;
+  height: 35px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.bookDetail-updateBtn:hover {
+  background-color: #218838;
+}
+
+.bookDetail-removeBtn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 25px;
+  height: 35px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.bookDetail-removeBtn:hover {
+  background-color: #218838;
+}
